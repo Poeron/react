@@ -1,27 +1,100 @@
 import Card from "../components/Card";
-import resim1 from "../assets/images/resim1.jpg";
-import resim2 from "../assets/images/resim2.jpg";
-import resim3 from "../assets/images/resim3.jpg";
 
 const Home = () => {
   return (
-    <div className="row">
-      <Card
-        imageSrc={resim1}
-        title="resim1"
-        text="lorem ipsum dolor sit amet"
-      />
-      <Card
-        imageSrc={resim2}
-        title="resim2"
-        text="lorem ipsum dolor sit amet"
-      />
-      <Card
-        imageSrc={resim3}
-        title="resim3"
-        text="lorem ipsum dolor sit amet"
-      />
-    </div>
+    <>
+      <div className="container">
+        <br />
+        <h3>Ekleme İşlemleri</h3>
+        <br />
+        <div className="row">
+          <Card
+            header="Daire Ekle"
+            title="Daire Ekleme Formu"
+            text="Daire ekleme formu burada yer alacak."
+            class="success"
+          />
+          <Card
+            header="Kullanıcı Ekle"
+            title="Kullanıcı Ekleme Formu"
+            text="Kullanıcı ekleme formu burada yer alacak."
+            class="success"
+          />
+          <Card
+            header="Fatura İşlemleri"
+            title="Aidat ve Fatura Bilgileri Ekle"
+            text="Aidat ve fatura bilgileri ekleme formu burada yer alacak."
+            class="success"
+          />
+        </div>
+        <h3>Görüntüleme İşlemleri</h3>
+        <br />
+        <div className="row">
+          <Card
+            header="Ödemeler"
+            title="Gelen Ödemeleri Görüntüle"
+            text="Gelen ödemeleri görüntüleme formu burada yer alacak."
+            class="secondary"
+          />
+          <Card
+            header="Mesajlar"
+            title="Gelen Mesajları Görüntüle"
+            text="Gelen mesajları görüntüleme formu burada yer alacak."
+            class="secondary"
+          />
+          <Card
+            header="Borç listesi"
+            title="Aylık Borç-Alacak Listesini Görüntüle"
+            text="Aylık borç-alacak listesi görüntüleme formu burada yer alacak."
+            class="secondary"
+          />
+        </div>
+        <h3>Kullanıcı İşlemleri</h3>
+        <br />
+        <div className="row">
+          <Card
+            header="Kullanıcılar"
+            title="Kullanıcıları Listele"
+            text="Kullanıcıları listeleme formu burada yer alacak."
+            class="info"
+          />
+          <Card
+            header="Kullanıcılar"
+            title="Kullanıcıları Düzenle"
+            text="Kullanıcıları düzenleme formu burada yer alacak."
+            class="warning"
+          />
+          <Card
+            header="Kullanıcılar"
+            title="Kullanıcıları Sil"
+            text="Kullanıcıları silme formu burada yer alacak."
+            class="danger"
+          />
+        </div>
+        <h3>Daire İşlemleri</h3>
+        <br />
+        <div className="row">
+          <Card
+            header="Daireler"
+            title="Daireleri Listele"
+            text="Daireleri listeleme formu burada yer alacak."
+            class="info"
+          />
+          <Card
+            header="Daireler"
+            title="Daireleri Düzenle"
+            text="Daireleri düzenleme formu burada yer alacak."
+            class="warning"
+          />
+          <Card
+            header="Daireler"
+            title="Daireleri Sil"
+            text="Daireleri silme formu burada yer alacak."
+            class="danger"
+          />
+        </div>
+      </div>
+    </>
   );
 };
 

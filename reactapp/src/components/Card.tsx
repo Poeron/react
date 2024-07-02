@@ -1,22 +1,24 @@
 interface Props {
-  imageSrc: string;
+  header: string;
   title: string;
   text: string;
+  class: string;
 }
 
-const Card = ({ imageSrc, title, text }: Props) => {
+const Card = ({ header, title, text, class: className }: Props) => {
   return (
-    <>
-      <div className="col-4">
-        <div className="card">
-          <img src={imageSrc} className="card-img-top " alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">{title}</h5>
-            <p className="card-text">{text}</p>
-          </div>
+    <div className="col-4">
+      <div
+        className={`card text-bg-${className} mb-3`}
+        style={{ width: "100%", height: "90%" }}
+      >
+        <div className="card-header">{header}</div>
+        <div className="card-body">
+          <h5 className="card-title">{title}</h5>
+          <p className="card-text">{text}</p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="/">
-        MyApplication
+      <a className="navbar-brand" href="/" style={{ padding: "10px" }}>
+        Fatura Yönetim Sistemi
       </a>
       <button
         className="navbar-toggler"
