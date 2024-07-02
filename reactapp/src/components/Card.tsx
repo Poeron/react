@@ -7,7 +7,7 @@ interface Props {
 const Card = ({ imageSrc, title, text }: Props) => {
   return (
     <>
-      <div className="col-3">
+      <div className="col-4">
         <div className="card">
           <img src={imageSrc} className="card-img-top " alt="..." />
           <div className="card-body">
