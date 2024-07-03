@@ -8,16 +8,17 @@ const Sidebar: React.FC = () => {
 
   return (
     <div className="sidebar">
-      <h2 className="text-center">My App</h2>
-
+      <a href="/">
+        <h2 className="text-center">Yönetici</h2>
+      </a>
       <div>
         <a onClick={() => setShowHomeSubmenu(!showHomeSubmenu)}>
           Ekleme İşlemleri
         </a>
         <div className={`submenu ${showHomeSubmenu ? "show" : ""}`}>
-          <a href="#home1">Daire Ekle</a>
-          <a href="#home2">Kullanıcı Ekle</a>
-          <a href="#home3">Aidat ve Fatura Ekle</a>
+          <a href="/addApartment">Daire Ekle</a>
+          <a href="/addUser">Kullanıcı Ekle</a>
+          <a href="/addBill">Aidat ve Fatura Ekle</a>
         </div>
       </div>
 
