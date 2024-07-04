@@ -4,17 +4,13 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Sidebar from "./components/Sidebar";
-import AddApartment from "./pages/AddApartment";
-import ApartmentList from "./components/ApartmentList";
-import AddUser from "./pages/AddUser";
 import AddBill from "./pages/AddBill";
 import BillsList from "./components/BillsList";
 import MessageList from "./components/MessageList";
-import ListUser from "./components/ListUser";
+import User from "./pages/User";
+import Apartment from "./pages/Apartment";
 
 function App() {
-  const [selectedApartmentId, setSelectedApartmentId] = useState<string>("");
-
   return (
     <>
       <Router>
@@ -29,18 +25,6 @@ function App() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/addApartment" element={<AddApartment />} />
-                <Route
-                  path="/addUser"
-                  element={
-                    <>
-                      <AddUser selectedApartmentId={selectedApartmentId} />
-                      <ApartmentList
-                        onSelectApartment={setSelectedApartmentId}
-                      />
-                    </>
-                  }
-                />
                 <Route
                   path="/addBill"
                   element={
@@ -72,7 +56,8 @@ function App() {
                     </>
                   }
                 />
-                <Route path="/userList" element={<ListUser />} />
+                <Route path="/users" element={<User />} />
+                <Route path="/apartments" element={<Apartment />} />
               </Routes>
             </div>
           </div>

@@ -62,7 +62,7 @@ const AddApartment: React.FC = () => {
 
   return (
     <>
-      <h1>Add Apartment</h1>
+      <h1>Daire Ekle</h1>
       <form className="container" onSubmit={handleSubmit}>
         <div className="input-group mb-3">
           <input

@@ -47,4 +47,28 @@
   .show {
     display: block;
   }
+  .apartment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .apartment-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .apartment-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .apartment-card input[type="radio"] {
+    margin-bottom: 10px;
+  }
   

@@ -5,23 +5,31 @@ const Home = () => {
     <>
       <div className="container">
         <br />
-        <h3>Ekleme İşlemleri</h3>
+        <h3>Kiracı İşlemleri</h3>
         <br />
         <div className="row">
           <Card
-            header="Daire Ekle"
-            title="Daire Ekleme Formu"
-            text="Daire ekleme formu burada yer alacak."
-            class="success"
-            path="/addApartment"
+            header="Kiracılar"
+            title="Kiracıları Listele"
+            text="Kiracıları listeleme formu burada yer alacak."
+            class="info"
+            path="/users"
           />
+        </div>
+        <h3>Daire İşlemleri</h3>
+        <br />
+        <div className="row">
           <Card
-            header="Kullanıcı Ekle"
-            title="Kullanıcı Ekleme Formu"
-            text="Kullanıcı ekleme formu burada yer alacak."
-            class="success"
-            path="/addUser"
+            header="Daireler"
+            title="Daireleri Listele"
+            text="Daireleri listeleme formu burada yer alacak."
+            class="info"
+            path="/apartments"
           />
+        </div>
+        <h3>Ekleme İşlemleri</h3>
+        <br />
+        <div className="row">
           <Card
             header="Fatura İşlemleri"
             title="Aidat ve Fatura Bilgileri Ekle"
@@ -53,56 +61,6 @@ const Home = () => {
             text="Aylık borç-alacak listesi görüntüleme formu burada yer alacak."
             class="secondary"
             path="/unpaidBills"
-          />
-        </div>
-        <h3>Kullanıcı İşlemleri</h3>
-        <br />
-        <div className="row">
-          <Card
-            header="Kullanıcılar"
-            title="Kullanıcıları Listele"
-            text="Kullanıcıları listeleme formu burada yer alacak."
-            class="info"
-            path="/userList"
-          />
-          <Card
-            header="Kullanıcılar"
-            title="Kullanıcıları Düzenle"
-            text="Kullanıcıları düzenleme formu burada yer alacak."
-            class="warning"
-            path="#"
-          />
-          <Card
-            header="Kullanıcılar"
-            title="Kullanıcıları Sil"
-            text="Kullanıcıları silme formu burada yer alacak."
-            class="danger"
-            path="#"
-          />
-        </div>
-        <h3>Daire İşlemleri</h3>
-        <br />
-        <div className="row">
-          <Card
-            header="Daireler"
-            title="Daireleri Listele"
-            text="Daireleri listeleme formu burada yer alacak."
-            class="info"
-            path="#"
-          />
-          <Card
-            header="Daireler"
-            title="Daireleri Düzenle"
-            text="Daireleri düzenleme formu burada yer alacak."
-            class="warning"
-            path="#"
-          />
-          <Card
-            header="Daireler"
-            title="Daireleri Sil"
-            text="Daireleri silme formu burada yer alacak."
-            class="danger"
-            path="#"
           />
         </div>
       </div>

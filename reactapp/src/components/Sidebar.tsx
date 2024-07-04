@@ -9,19 +9,9 @@ const Sidebar: React.FC = () => {
   useEffect(() => {
     // Example logic to determine selected tab based on current URL or state
     const currentPath = window.location.pathname;
-
-    if (currentPath.startsWith("/addApartment")) {
-      setSelectedTab("addOperations");
+    if (currentPath.startsWith("/addBill")) {
+      setSelectedTab("addBill");
       setShowHomeSubmenu(true);
-      setSelectedSubmenu("addApartment");
-    } else if (currentPath.startsWith("/addUser")) {
-      setSelectedTab("addOperations");
-      setShowHomeSubmenu(true);
-      setSelectedSubmenu("addUser");
-    } else if (currentPath.startsWith("/addBill")) {
-      setSelectedTab("addOperations");
-      setShowHomeSubmenu(true);
-      setSelectedSubmenu("addBill");
     } else if (currentPath.startsWith("/paidBills")) {
       setSelectedTab("viewOperations");
       setShowServicesSubmenu(true);
@@ -34,7 +24,7 @@ const Sidebar: React.FC = () => {
       setSelectedTab("viewOperations");
       setShowServicesSubmenu(true);
       setSelectedSubmenu("unpaidBills");
-    } else if (currentPath.startsWith("/userList")) {
+    } else if (currentPath.startsWith("/users")) {
       setSelectedTab("userOperations");
     } else {
       setSelectedTab("");
@@ -57,31 +47,24 @@ const Sidebar: React.FC = () => {
       </a>
       <div>
         <a
-          onClick={handleToggleHomeSubmenu}
-          className={selectedTab === "addOperations" ? "selected" : ""}
+          href="/users"
+          className={selectedTab === "userOperations" ? "selected" : ""}
         >
-          Ekleme İşlemleri
+          Kiracı İşlemleri
         </a>
-        <div className={`submenu ${showHomeSubmenu ? "show" : ""}`}>
-          <a
-            href="/addApartment"
-            className={selectedSubmenu === "addApartment" ? "selected" : ""}
-          >
-            Daire Ekle
-          </a>
-          <a
-            href="/addUser"
-            className={selectedSubmenu === "addUser" ? "selected" : ""}
-          >
-            Kullanıcı Ekle
-          </a>
-          <a
-            href="/addBill"
-            className={selectedSubmenu === "addBill" ? "selected" : ""}
-          >
-            Aidat ve Fatura Ekle
-          </a>
-        </div>
+      </div>
+
+      <div>
+        <a href="/apartments">Daire İşlemleri</a>
+      </div>
+      <div>
+        <a
+          href="/addBill"
+          onClick={handleToggleHomeSubmenu}
+          className={selectedTab === "addBill" ? "selected" : ""}
+        >
+          Aidat ve Fatura Ekle
+        </a>
       </div>
 
       <div>
@@ -111,19 +94,6 @@ const Sidebar: React.FC = () => {
             Borç-Alacak Listesini Görüntüle
           </a>
         </div>
-      </div>
-
-      <div>
-        <a
-          href="/userList"
-          className={selectedTab === "userOperations" ? "selected" : ""}
-        >
-          Kullanıcı İşlemleri
-        </a>
-      </div>
-
-      <div>
-        <a href="#">Daire İşlemleri</a>
       </div>
     </div>
   );

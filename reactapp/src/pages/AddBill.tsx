@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import UserList from "../components/UserList"; // UserList bileşenini import et
+import UserCheckbox from "../components/UserCheckbox"; // UserList bileşenini import et
 
 interface BillData {
   fatura_turu: string;
@@ -85,7 +85,7 @@ const AddBill: React.FC = () => {
 
   return (
     <>
-      <h1>Add Bill</h1>
+      <h1>Fatura Ekle</h1>
       <form className="container" onSubmit={handleSubmit}>
         <div className="input-group mb-3">
           <select
@@ -131,7 +131,7 @@ const AddBill: React.FC = () => {
           Submit
         </button>
       </form>
-      <UserList onUserSelect={handleUserSelect} />
+      <UserCheckbox onUserSelect={handleUserSelect} />
     </>
   );
 };

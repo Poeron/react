@@ -85,7 +85,7 @@ const BillsList = ({ title, endpoint }: Props) => {
             value={period}
             onChange={handlePeriodChange}
           >
-            <option value="">Dönem seçin</option>
+            <option value="">Dönem Seçin</option>
             {periods.map((p) => (
               <option key={p} value={p}>
                 {p}
