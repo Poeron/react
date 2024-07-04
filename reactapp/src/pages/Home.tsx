@@ -38,21 +38,21 @@ const Home = () => {
             title="Gelen Ödemeleri Görüntüle"
             text="Gelen ödemeleri görüntüleme formu burada yer alacak."
             class="secondary"
-            path="#"
+            path="/paidBills"
           />
           <Card
             header="Mesajlar"
             title="Gelen Mesajları Görüntüle"
             text="Gelen mesajları görüntüleme formu burada yer alacak."
             class="secondary"
-            path="#"
+            path="/messages"
           />
           <Card
             header="Borç listesi"
             title="Aylık Borç-Alacak Listesini Görüntüle"
             text="Aylık borç-alacak listesi görüntüleme formu burada yer alacak."
             class="secondary"
-            path="#"
+            path="/unpaidBills"
           />
         </div>
         <h3>Kullanıcı İşlemleri</h3>
@@ -63,7 +63,7 @@ const Home = () => {
             title="Kullanıcıları Listele"
             text="Kullanıcıları listeleme formu burada yer alacak."
             class="info"
-            path="#"
+            path="/userList"
           />
           <Card
             header="Kullanıcılar"

@@ -21,7 +21,7 @@ const UserList: React.FC<UserListProps> = ({ onUserSelect }) => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          "https://localhost:7082/api/Admin/GetUsers"
+          "https://localhost:7082/api/Admin/GetUsersForBills"
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

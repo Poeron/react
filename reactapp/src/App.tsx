@@ -8,6 +8,9 @@ import AddApartment from "./pages/AddApartment";
 import ApartmentList from "./components/ApartmentList";
 import AddUser from "./pages/AddUser";
 import AddBill from "./pages/AddBill";
+import BillsList from "./components/BillsList";
+import MessageList from "./components/MessageList";
+import ListUser from "./components/ListUser";
 
 function App() {
   const [selectedApartmentId, setSelectedApartmentId] = useState<string>("");
@@ -46,6 +49,30 @@ function App() {
                     </>
                   }
                 />
+                <Route
+                  path="/paidBills"
+                  element={
+                    <>
+                      <BillsList
+                        title="Ödenmiş Faturalar"
+                        endpoint="GetPaidBills"
+                      />
+                    </>
+                  }
+                />
+                <Route path="/messages" element={<MessageList />} />
+                <Route
+                  path="/unpaidBills"
+                  element={
+                    <>
+                      <BillsList
+                        title="Ödenmemiş Faturalar"
+                        endpoint="GetMonthlyUnpaidBills"
+                      />
+                    </>
+                  }
+                />
+                <Route path="/userList" element={<ListUser />} />
               </Routes>
             </div>
           </div>
