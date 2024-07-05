@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 
 interface Apartment {
   id: number;
-  blok: string;
-  tipi: string;
-  bulundugu_kat: string;
-  daire_numarasi: string;
+  block: string;
+  type: string;
+  floor: string;
+  apartment_number: string;
 }
 
 interface ApartmentListProps {
@@ -73,16 +73,16 @@ const EmptyApartmentList: React.FC<ApartmentListProps> = ({
                 onChange={() => handleApartmentSelect(apartment.id.toString())}
               />
               <div>
-                <strong>Blok:</strong> {apartment.blok}
+                <strong>Blok:</strong> {apartment.block}
               </div>
               <div>
-                <strong>Tipi:</strong> {apartment.tipi}
+                <strong>Tipi:</strong> {apartment.type}
               </div>
               <div>
-                <strong>Bulunduğu Kat:</strong> {apartment.bulundugu_kat}
+                <strong>Bulunduğu Kat:</strong> {apartment.floor}
               </div>
               <div>
-                <strong>Daire Numarası:</strong> {apartment.daire_numarasi}
+                <strong>Daire Numarası:</strong> {apartment.apartment_number}
               </div>
             </label>
           </div>

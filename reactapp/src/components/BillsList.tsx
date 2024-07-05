@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 interface Bills {
-  ad_soyad: string;
-  fatura_turu: string;
-  ucret: string;
-  donem: string;
+  full_name: string;
+  bill_type: string;
+  amount: string;
+  period: string;
 }
 interface Props {
   title: string;
@@ -39,7 +39,7 @@ const BillsList = ({ title, endpoint }: Props) => {
       try {
         let url = `https://localhost:7082/api/Admin/${endpoint}`;
         if (period) {
-          url += `?donem=${period}`;
+          url += `?period=${period}`;
         }
 
         const response = await fetch(url);
@@ -61,6 +61,13 @@ const BillsList = ({ title, endpoint }: Props) => {
 
     fetchBills();
   }, [endpoint, period]);
+
+  const billTypesConverted: Record<string, string> = {
+    Gas: "Doğalgaz",
+    Water: "Su",
+    Electricity: "Elektrik",
+    Dues: "Aidat",
+  };
 
   const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPeriod(e.target.value);
@@ -106,10 +113,10 @@ const BillsList = ({ title, endpoint }: Props) => {
         <tbody>
           {bills.map((bill, index) => (
             <tr key={index}>
-              <td>{bill.ad_soyad}</td>
-              <td>{bill.fatura_turu}</td>
-              <td>{bill.ucret}</td>
-              <td>{bill.donem}</td>
+              <td>{bill.full_name}</td>
+              <td>{billTypesConverted[bill.bill_type]}</td>
+              <td>{bill.amount}</td>
+              <td>{bill.period}</td>
             </tr>
           ))}
         </tbody>

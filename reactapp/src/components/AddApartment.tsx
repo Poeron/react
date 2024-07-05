@@ -1,18 +1,18 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 
 interface FormData {
-  blok: string;
-  tipi: string;
-  bulundugu_kat: number | string;
-  daire_numarasi: number | string;
+  block: string;
+  type: string;
+  floor: number | string;
+  apartment_number: number | string;
 }
 
 const AddApartment: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
-    blok: "",
-    tipi: "",
-    bulundugu_kat: "",
-    daire_numarasi: "",
+    block: "",
+    type: "",
+    floor: "",
+    apartment_number: "",
   });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -46,7 +46,7 @@ const AddApartment: React.FC = () => {
     let value: string | number = e.target.value;
 
     // Convert to integer if the field represents an integer value
-    if (fieldName === "bulundugu_kat" || fieldName === "daire_numarasi") {
+    if (fieldName === "floor" || fieldName === "apartment_number") {
       value = parseInt(value, 10); // Parse input as integer
       if (isNaN(value)) {
         // Check if parsing failed
@@ -70,8 +70,8 @@ const AddApartment: React.FC = () => {
             className="form-control"
             placeholder="Blok"
             aria-label="Blok"
-            onChange={(e) => handleInputChange(e, "blok")}
-            value={formData.blok}
+            onChange={(e) => handleInputChange(e, "block")}
+            value={formData.block}
           />
         </div>
         <div className="input-group mb-3">
@@ -80,8 +80,8 @@ const AddApartment: React.FC = () => {
             className="form-control"
             placeholder="Tipi (örneğin 2+1)"
             aria-label="Tipi (örneğin 2+1)"
-            onChange={(e) => handleInputChange(e, "tipi")}
-            value={formData.tipi}
+            onChange={(e) => handleInputChange(e, "type")}
+            value={formData.type}
           />
         </div>
         <div className="input-group mb-3">
@@ -90,8 +90,8 @@ const AddApartment: React.FC = () => {
             className="form-control"
             placeholder="Bulunduğu Kat"
             aria-label="Bulunduğu Kat"
-            onChange={(e) => handleInputChange(e, "bulundugu_kat")}
-            value={formData.bulundugu_kat}
+            onChange={(e) => handleInputChange(e, "floor")}
+            value={formData.floor}
           />
         </div>
         <div className="input-group mb-3">
@@ -100,8 +100,8 @@ const AddApartment: React.FC = () => {
             className="form-control"
             placeholder="Daire Numarası"
             aria-label="Daire Numarası"
-            onChange={(e) => handleInputChange(e, "daire_numarasi")}
-            value={formData.daire_numarasi}
+            onChange={(e) => handleInputChange(e, "apartment_number")}
+            value={formData.apartment_number}
           />
         </div>
         <button className="btn btn-primary" type="submit">

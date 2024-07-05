@@ -1,10 +1,10 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 
 interface FormData {
-  ad_soyad: string;
-  tckn: string;
+  full_name: string;
+  national_id: string;
   email: string;
-  telefon: string;
+  phone: string;
 }
 
 interface AddUserProps {
@@ -13,10 +13,10 @@ interface AddUserProps {
 
 const AddUser: React.FC<AddUserProps> = ({ selectedApartmentId }) => {
   const [formData, setFormData] = useState<FormData>({
-    ad_soyad: "",
-    tckn: "",
+    full_name: "",
+    national_id: "",
     email: "",
-    telefon: "",
+    phone: "",
   });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -64,8 +64,8 @@ const AddUser: React.FC<AddUserProps> = ({ selectedApartmentId }) => {
             className="form-control"
             placeholder="Ad Soyad"
             aria-label="Ad Soyad"
-            onChange={(e) => handleInputChange(e, "ad_soyad")}
-            value={formData.ad_soyad}
+            onChange={(e) => handleInputChange(e, "full_name")}
+            value={formData.full_name}
           />
         </div>
         <div className="input-group mb-3">
@@ -74,8 +74,8 @@ const AddUser: React.FC<AddUserProps> = ({ selectedApartmentId }) => {
             className="form-control"
             placeholder="TCKN"
             aria-label="TCKN"
-            onChange={(e) => handleInputChange(e, "tckn")}
-            value={formData.tckn}
+            onChange={(e) => handleInputChange(e, "national_id")}
+            value={formData.national_id}
           />
         </div>
         <div className="input-group mb-3">
@@ -94,8 +94,8 @@ const AddUser: React.FC<AddUserProps> = ({ selectedApartmentId }) => {
             className="form-control"
             placeholder="Telefon Numarası"
             aria-label="Telefon Numarası"
-            onChange={(e) => handleInputChange(e, "telefon")}
-            value={formData.telefon}
+            onChange={(e) => handleInputChange(e, "phone")}
+            value={formData.phone}
           />
         </div>
         <button className="btn btn-primary" type="submit">

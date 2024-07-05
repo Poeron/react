@@ -26,6 +26,8 @@ const Sidebar: React.FC = () => {
       setSelectedSubmenu("unpaidBills");
     } else if (currentPath.startsWith("/users")) {
       setSelectedTab("userOperations");
+    } else if (currentPath.startsWith("/apartments")) {
+      setSelectedTab("apartmentOperations");
     } else {
       setSelectedTab("");
       setSelectedSubmenu("");
@@ -55,7 +57,12 @@ const Sidebar: React.FC = () => {
       </div>
 
       <div>
-        <a href="/apartments">Daire İşlemleri</a>
+        <a
+          href="/apartments"
+          className={selectedTab === "apartmentOperations" ? "selected" : ""}
+        >
+          Daire İşlemleri
+        </a>
       </div>
       <div>
         <a

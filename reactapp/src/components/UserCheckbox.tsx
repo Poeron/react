@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 
 interface User {
   id: number;
-  ad_soyad: string;
-  blok: string;
-  daire_numarasi: number;
+  full_name: string;
+  block: string;
+  apartment_number: number;
 }
 
 interface UserListProps {
@@ -93,13 +93,13 @@ const UserCheckbox: React.FC<UserListProps> = ({ onUserSelect }) => {
               onChange={() => handleCheckboxChange(user.id)}
             />
             <div>
-              <strong>Ad Soyad:</strong> {user.ad_soyad}
+              <strong>Ad Soyad:</strong> {user.full_name}
             </div>
             <div>
-              <strong>Blok:</strong> {user.blok}
+              <strong>Blok:</strong> {user.block}
             </div>
             <div>
-              <strong>Daire Numarası:</strong> {user.daire_numarasi}
+              <strong>Daire Numarası:</strong> {user.apartment_number}
             </div>
           </label>
         ))}

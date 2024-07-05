@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 
 interface Apartment {
   id: number;
-  blok: string;
-  durumu: string;
-  tipi: string;
-  bulundugu_kat: string;
-  daire_numarasi: string;
+  block: string;
+  is_full: boolean;
+  type: string;
+  floor: string;
+  apartment_number: string;
 }
 
 const ApartmentList = () => {
@@ -67,11 +67,11 @@ const ApartmentList = () => {
         <tbody>
           {apartments.map((apartment) => (
             <tr key={apartment.id}>
-              <td>{apartment.durumu}</td>
-              <td>{apartment.tipi}</td>
-              <td>{apartment.blok}</td>
-              <td>{apartment.daire_numarasi}</td>
-              <td>{apartment.bulundugu_kat}</td>
+              <td>{apartment.is_full ? "Dolu" : "Boş"}</td>
+              <td>{apartment.type}</td>
+              <td>{apartment.block}</td>
+              <td>{apartment.apartment_number}</td>
+              <td>{apartment.floor}</td>
               <td>
                 <button
                   className="btn btn-primary"
@@ -79,12 +79,16 @@ const ApartmentList = () => {
                     setSelectedApartmentId(apartment.id.toString())
                   }
                 >
-                  Edit
+                  Düzenle
                 </button>
               </td>
               <td>
                 <button
-                  className="btn btn-danger"
+                  className={
+                    apartment.is_full === true
+                      ? "btn btn-danger disabled"
+                      : "btn btn-danger"
+                  }
                   onClick={() => {
                     fetch(
                       `https://localhost:7082/api/Admin/DeleteApartment/?id=${apartment.id}`,
@@ -98,7 +102,7 @@ const ApartmentList = () => {
                     });
                   }}
                 >
-                  Delete
+                  Sil
                 </button>
               </td>
             </tr>

@@ -2,16 +2,16 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import UserCheckbox from "../components/UserCheckbox"; // UserList bileşenini import et
 
 interface BillData {
-  fatura_turu: string;
-  fatura_tutari: string;
-  donem: string;
+  bill_type: string;
+  amount: string;
+  period: string;
 }
 
 const AddBill: React.FC = () => {
   const [formData, setFormData] = useState<BillData>({
-    fatura_turu: "",
-    fatura_tutari: "",
-    donem: "",
+    bill_type: "",
+    amount: "",
+    period: "",
   });
   const [selectedUserIds, setSelectedUserIds] = useState<number[]>([]);
 
@@ -22,18 +22,17 @@ const AddBill: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // Convert fatura_tutari to ücret and send to API
       const payload = {
         bill: {
-          fatura_turu: formData.fatura_turu,
-          ucret: parseInt(formData.fatura_tutari, 10),
-          donem: formData.donem,
+          bill_type: billTypesConverted[formData.bill_type],
+          amount: parseInt(formData.amount, 10),
+          period: formData.period,
         },
-        kullaniciIdler: selectedUserIds,
+        user_ids: selectedUserIds,
       };
 
-      if (isNaN(payload.bill.ucret)) {
-        throw new Error("Invalid value for 'Fatura Tutarı'");
+      if (isNaN(payload.bill.amount)) {
+        throw new Error("Invalid value for 'Amount'");
       }
 
       const response = await fetch("https://localhost:7082/api/Admin/AddBill", {
@@ -67,7 +66,14 @@ const AddBill: React.FC = () => {
     });
   };
 
-  const billTypes = ["Aidat", "Su", "Elektrik", "Doğalgaz"];
+  const billTypes = ["Aidat", "Su", "Doğalgaz", "Elektrik"];
+  const billTypesConverted: Record<string, string> = {
+    Aidat: "Dues",
+    Su: "Water",
+    Doğalgaz: "Gas",
+    Elektrik: "Electricity",
+  };
+
   const months = [
     "Ocak",
     "Şubat",
@@ -91,8 +97,8 @@ const AddBill: React.FC = () => {
           <select
             className="form-control"
             aria-label="Fatura Türü"
-            onChange={(e) => handleInputChange(e, "fatura_turu")}
-            value={formData.fatura_turu}
+            onChange={(e) => handleInputChange(e, "bill_type")}
+            value={formData.bill_type}
           >
             <option value="">Fatura Türü Seçin</option>
             {billTypes.map((type) => (
@@ -108,16 +114,16 @@ const AddBill: React.FC = () => {
             className="form-control"
             placeholder="Fatura Tutarı"
             aria-label="Fatura Tutarı"
-            onChange={(e) => handleInputChange(e, "fatura_tutari")}
-            value={formData.fatura_tutari}
+            onChange={(e) => handleInputChange(e, "amount")}
+            value={formData.amount}
           />
         </div>
         <div className="input-group mb-3">
           <select
             className="form-control"
             aria-label="Dönem"
-            onChange={(e) => handleInputChange(e, "donem")}
-            value={formData.donem}
+            onChange={(e) => handleInputChange(e, "period")}
+            value={formData.period}
           >
             <option value="">Dönem Seçin</option>
             {months.map((month) => (

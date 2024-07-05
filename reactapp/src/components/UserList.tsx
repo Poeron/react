@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 
 interface User {
   id: number;
-  ad_soyad: string;
-  tckn: string;
+  full_name: string;
+  national_id: string;
   email: string;
-  telefon: string;
-  blok: string;
-  daire_numarasi: number;
+  phone: string;
+  block: string;
+  apartment_number: number;
 }
 
 const UserList: React.FC = () => {
@@ -70,12 +70,12 @@ const UserList: React.FC = () => {
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td>{user.ad_soyad}</td>
-              <td>{user.tckn}</td>
+              <td>{user.full_name}</td>
+              <td>{user.national_id}</td>
               <td>{user.email}</td>
-              <td>{user.telefon}</td>
-              <td>{user.blok}</td>
-              <td>{user.daire_numarasi}</td>
+              <td>{user.phone}</td>
+              <td>{user.block}</td>
+              <td>{user.apartment_number}</td>
               <td>
                 <button
                   className="btn btn-primary"
@@ -83,7 +83,7 @@ const UserList: React.FC = () => {
                     setSelectedUser(user);
                   }}
                 >
-                  Edit
+                  Düzenle
                 </button>
               </td>
               <td>
@@ -102,7 +102,7 @@ const UserList: React.FC = () => {
                     });
                   }}
                 >
-                  Delete
+                  Sil
                 </button>
               </td>
             </tr>

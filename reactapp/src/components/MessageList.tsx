@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 interface Message {
-  ad_soyad: string;
+  full_name: string;
   content: string;
   formattedDate: string;
 }
@@ -58,7 +58,7 @@ const MessageList = () => {
           <tbody>
             {messages.map((message, index) => (
               <tr key={index}>
-                <td>{message.ad_soyad}</td>
+                <td>{message.full_name}</td>
                 <td>{message.content}</td>
                 <td>{message.formattedDate}</td>
               </tr>
