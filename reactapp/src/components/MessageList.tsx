@@ -14,7 +14,12 @@ const MessageList = () => {
     const fetchMessages = async () => {
       try {
         const response = await fetch(
-          "https://localhost:7082/api/Admin/GetMessages"
+          "https://localhost:7082/api/Admin/GetMessages",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

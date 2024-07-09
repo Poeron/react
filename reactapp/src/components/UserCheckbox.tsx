@@ -21,7 +21,12 @@ const UserCheckbox: React.FC<UserListProps> = ({ onUserSelect }) => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          "https://localhost:7082/api/Admin/GetUsersForBills"
+          "https://localhost:7082/api/Admin/GetUsersForBills",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

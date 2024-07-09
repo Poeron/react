@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../AuthContext";
 
 const Sidebar: React.FC = () => {
   const [showHomeSubmenu, setShowHomeSubmenu] = useState(false);
@@ -6,8 +7,9 @@ const Sidebar: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<string>("");
   const [selectedSubmenu, setSelectedSubmenu] = useState<string>("");
 
+  const { logout } = useAuth();
+
   useEffect(() => {
-    // Example logic to determine selected tab based on current URL or state
     const currentPath = window.location.pathname;
     if (currentPath.startsWith("/addBill")) {
       setSelectedTab("addBill");
@@ -42,8 +44,13 @@ const Sidebar: React.FC = () => {
     setShowServicesSubmenu(!showServicesSubmenu);
   };
 
+  const handleLogout = () => {
+    logout();
+    window.location.href = "/auth/login";
+  };
+
   return (
-    <div className="sidebar">
+    <div className="sidebar d-flex flex-column" style={{ height: "100vh" }}>
       <a href="/">
         <h2 className="text-center">Yönetici</h2>
       </a>
@@ -101,6 +108,11 @@ const Sidebar: React.FC = () => {
             Borç-Alacak Listesini Görüntüle
           </a>
         </div>
+      </div>
+      <div className="mt-auto p-3">
+        <button className="btn btn-danger w-100" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </div>
   );

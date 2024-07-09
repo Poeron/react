@@ -42,7 +42,11 @@ const BillsList = ({ title, endpoint }: Props) => {
           url += `?period=${period}`;
         }
 
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 
 interface User {
   id: number;
@@ -12,15 +13,51 @@ interface User {
 
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const [show, setShow] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const update_user = () => {
+    const full_name = document.getElementById("full_name") as HTMLInputElement;
+    const national_id = document.getElementById(
+      "national_id"
+    ) as HTMLInputElement;
+    const email = document.getElementById("email") as HTMLInputElement;
+    const phone = document.getElementById("phone") as HTMLInputElement;
+
+    fetch("https://localhost:7082/api/Admin/UpdateUser", {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        full_name: full_name.value,
+        national_id: national_id.value,
+        email: email.value,
+        phone: phone.value,
+        id: selectedUser?.id,
+      }),
+    }).then(() => {
+      console.log("Updated");
+      handleClose();
+    });
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          "https://localhost:7082/api/Admin/GetUsers"
+          "https://localhost:7082/api/Admin/GetUsers",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -39,7 +76,7 @@ const UserList: React.FC = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [update_user]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -81,6 +118,7 @@ const UserList: React.FC = () => {
                   className="btn btn-primary"
                   onClick={() => {
                     setSelectedUser(user);
+                    handleShow();
                   }}
                 >
                   Düzenle
@@ -93,6 +131,11 @@ const UserList: React.FC = () => {
                     fetch(
                       `https://localhost:7082/api/Admin/DeleteUser/?id=${user.id}`,
                       {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                          )}`,
+                        },
                         method: "DELETE",
                       }
                     ).then(() => {
@@ -109,6 +152,78 @@ const UserList: React.FC = () => {
           ))}
         </tbody>
       </table>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {selectedUser
+              ? "Kullanıcı ID: " + selectedUser.id
+              : "ID alınamadı."}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="bd-example">
+            <Form>
+              <Form.Floating className=" mb-3">
+                <Form.Control
+                  type="text"
+                  className=""
+                  id="full_name"
+                  autoComplete="full_name"
+                  placeholder="John Doe"
+                  defaultValue={selectedUser?.full_name}
+                />
+                <Form.Label htmlFor="full_name">Ad Soyad</Form.Label>
+              </Form.Floating>
+              <Form.Floating className=" mb-3">
+                <Form.Control
+                  type="text"
+                  className=""
+                  id="national_id"
+                  autoComplete="national_id"
+                  placeholder="TCKN"
+                  defaultValue={selectedUser?.national_id}
+                />
+                <Form.Label htmlFor="national_id">TCKN</Form.Label>
+              </Form.Floating>
+              <Form.Floating className=" mb-3">
+                <Form.Control
+                  type="email"
+                  className=""
+                  id="email"
+                  autoComplete="email"
+                  placeholder="name@example.com"
+                  defaultValue={selectedUser?.email}
+                />
+                <Form.Label htmlFor="email">E-Mail</Form.Label>
+              </Form.Floating>
+              <Form.Floating className=" mb-3">
+                <Form.Control
+                  type="tel"
+                  className=""
+                  id="phone"
+                  autoComplete="phone"
+                  placeholder="5554442211"
+                  defaultValue={selectedUser?.phone}
+                />
+                <Form.Label htmlFor="phone">Telefon Numarası</Form.Label>
+              </Form.Floating>
+            </Form>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Kapat
+          </Button>
+          <Button variant="primary" onClick={update_user}>
+            Düzenle
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

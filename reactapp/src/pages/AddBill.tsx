@@ -38,6 +38,7 @@ const AddBill: React.FC = () => {
       const response = await fetch("https://localhost:7082/api/Admin/AddBill", {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),

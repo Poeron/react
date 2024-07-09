@@ -26,6 +26,7 @@ const AddUser: React.FC<AddUserProps> = ({ selectedApartmentId }) => {
       const response = await fetch(url, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

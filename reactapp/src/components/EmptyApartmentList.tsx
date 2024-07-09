@@ -24,7 +24,12 @@ const EmptyApartmentList: React.FC<ApartmentListProps> = ({
     const fetchApartments = async () => {
       try {
         const response = await fetch(
-          "https://localhost:7082/api/Admin/GetEmptyApartments"
+          "https://localhost:7082/api/Admin/GetEmptyApartments",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

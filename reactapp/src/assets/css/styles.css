@@ -1,74 +1,70 @@
 .sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    height: 100vh;
-    background-color: #343a40;
-    color: white;
-    padding-top: 20px;
-  }
-  
-  .sidebar a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
-  .sidebar a.selected {
-    background-color: #495057;
-    font-weight: bold; /* Optional: Bold font */
-  }
-  
-  .sidebar a:hover {
-    background-color: #495057;
-  }
-  
-  .content {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .submenu {
-    display: none;
-    padding-left: 20px;
-  }
-  
-  .submenu a {
-    padding: 5px 20px;
-  }
-  
-  /* Selected submenu item */
-  .submenu a.selected {
-    background-color: #6c757d; /* Background color for selected submenu */
-    color: white; /* Text color for selected submenu */
-  }
-  
-  .show {
-    display: block;
-  }
-  .apartment-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .apartment-card {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .apartment-card-content {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .apartment-card input[type="radio"] {
-    margin-bottom: 10px;
-  }
-  
+  min-width: 250px;
+  max-width: 250px;
+  height: 100vh;
+  background-color: #343a40;
+  color: white;
+  padding-top: 20px;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.sidebar a.selected,
+.sidebar a:hover {
+  background-color: #495057;
+  font-weight: bold; /* Optional: Bold font for selected and hovered items */
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.submenu {
+  display: none;
+  padding-left: 20px;
+}
+
+.submenu a {
+  padding: 5px 20px;
+}
+
+.submenu a.selected {
+  background-color: #6c757d; /* Background color for selected submenu */
+  color: white; /* Text color for selected submenu */
+}
+
+.show {
+  display: block;
+}
+
+.apartment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.apartment-card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.apartment-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.apartment-card input[type="radio"] {
+  margin-bottom: 10px;
+}
