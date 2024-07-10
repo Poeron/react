@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { get } from "./ApiHelper";
 
 interface Bills {
   full_name: string;
@@ -42,16 +43,8 @@ const BillsList = ({ title, endpoint }: Props) => {
           url += `?period=${period}`;
         }
 
-        const response = await fetch(url, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data: Bills[] = await response.json();
-        setBills(data);
+        const response = await get(url);
+        setBills(response);
       } catch (error: unknown) {
         if (error instanceof Error) {
           setEr(error.message);
@@ -64,7 +57,7 @@ const BillsList = ({ title, endpoint }: Props) => {
     };
 
     fetchBills();
-  }, [endpoint, period]);
+  }, [period]);
 
   const billTypesConverted: Record<string, string> = {
     Gas: "Doğalgaz",
@@ -78,12 +71,20 @@ const BillsList = ({ title, endpoint }: Props) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (er && (title !== "Ödenmemiş Faturalar" || period)) {
-    return <div>An error occurred: {er}</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="spinner-border" role="status"></div>
+      </div>
+    );
   }
 
+  if (er && (title !== "Ödenmemiş Faturalar" || period)) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {er}
+      </div>
+    );
+  }
   return (
     <>
       <h2>{title}</h2>

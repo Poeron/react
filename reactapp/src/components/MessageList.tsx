@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { get } from "./ApiHelper";
 
 interface Message {
   full_name: string;
@@ -13,19 +14,10 @@ const MessageList = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch(
-          "https://localhost:7082/api/Admin/GetMessages",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
+        const response = await get(
+          "https://localhost:7082/api/Admin/GetMessages"
         );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data: Message[] = await response.json();
-        setMessages(data);
+        setMessages(response);
       } catch (error: unknown) {
         if (error instanceof Error) {
           setEr(error.message);
@@ -40,13 +32,23 @@ const MessageList = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="spinner-border" role="status"></div>
+      </div>
+    );
+  }
+
+  if (er) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {er}
+      </div>
+    );
   }
   if (messages.length === 0) {
     return <div>No messages found</div>;
   }
-  if (er) return <div>An error occurred: {er}</div>;
-
   return (
     <>
       <div className="container">

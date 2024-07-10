@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { get } from "./ApiHelper";
 
 interface User {
   id: number;
@@ -14,30 +15,19 @@ interface UserListProps {
 const UserCheckbox: React.FC<UserListProps> = ({ onUserSelect }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [er, setEr] = useState<string | null>(null);
   const [selectedUserIds, setSelectedUserIds] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          "https://localhost:7082/api/Admin/GetUsersForBills",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data: User[] = await response.json();
-        setUsers(data);
+        const response = await get("https://localhost:7082/api/Admin/GetUsers");
+        setUsers(response);
       } catch (error: unknown) {
         if (error instanceof Error) {
-          setError(error.message);
+          setEr(error.message);
         } else {
-          setError("An unknown error occurred");
+          setEr("An unknown error occurred");
         }
       } finally {
         setLoading(false);
@@ -71,11 +61,19 @@ const UserCheckbox: React.FC<UserListProps> = ({ onUserSelect }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="spinner-border" role="status"></div>
+      </div>
+    );
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (er) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {er}
+      </div>
+    );
   }
 
   return (

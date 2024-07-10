@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { get } from "./ApiHelper";
 
 interface Apartment {
   id: number;
@@ -17,30 +18,21 @@ const EmptyApartmentList: React.FC<ApartmentListProps> = ({
 }) => {
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [er, setEr] = useState<string | null>(null);
   const [selectedApartmentId, setSelectedApartmentId] = useState<string>("");
 
   useEffect(() => {
     const fetchApartments = async () => {
       try {
-        const response = await fetch(
-          "https://localhost:7082/api/Admin/GetEmptyApartments",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
+        const response = await get(
+          "https://localhost:7082/api/Admin/GetEmptyApartments"
         );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data: Apartment[] = await response.json();
-        setApartments(data);
+        setApartments(response);
       } catch (error: unknown) {
         if (error instanceof Error) {
-          setError(error.message);
+          setEr(error.message);
         } else {
-          setError("An unknown error occurred");
+          setEr("An unknown error occurred");
         }
       } finally {
         setLoading(false);
@@ -56,11 +48,19 @@ const EmptyApartmentList: React.FC<ApartmentListProps> = ({
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="spinner-border" role="status"></div>
+      </div>
+    );
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (er) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {er}
+      </div>
+    );
   }
 
   return (

@@ -16,7 +16,11 @@ const Login: React.FC = () => {
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem("token", data.token);
-      window.location.href = "/home";
+      if (data.is_admin) {
+        window.location.href = "/home";
+      } else {
+        window.location.href = "/user";
+      }
     } else {
       const error = await response.json();
       console.error(error.message);

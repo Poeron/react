@@ -11,6 +11,11 @@ import Apartment from "./pages/Apartment";
 import { AuthProvider } from "./AuthContext";
 import AdminLayout from "./layouts/AdminLayout";
 import AuthLayout from "./layouts/AuthLayout";
+import UserLayout from "./layouts/UserLayout";
+import ViewBills from "./components/ViewBills";
+import SendMessage from "./components/SendMessage";
+import ViewApartment from "./components/ViewApartment";
+import ViewUser from "./components/ViewUser";
 
 function App() {
   return (
@@ -44,6 +49,12 @@ function App() {
             />
             <Route path="users" element={<User />} />
             <Route path="apartments" element={<Apartment />} />
+          </Route>
+          <Route path="/user" element={<UserLayout />}>
+            <Route path="view-bills" element={<ViewBills />} />
+            <Route path="send-message" element={<SendMessage />} />
+            <Route path="view-apartment" element={<ViewApartment />} />
+            <Route path="view-user-info" element={<ViewUser />} />
           </Route>
         </Routes>
       </Router>

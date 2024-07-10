@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { post } from "./ApiHelper";
 
 interface FormData {
   full_name: string;
@@ -18,26 +19,13 @@ const AddUser: React.FC<AddUserProps> = ({ selectedApartmentId }) => {
     email: "",
     phone: "",
   });
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const url = `https://localhost:7082/api/Admin/AddUser?id=${selectedApartmentId}`;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      alert("Form submitted successfully!");
-      // Additional actions after successful submission
+      const response = await post(url, { ...formData });
+      alert(`Form submitted successfully!
+User Password: ${response.password}`);
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("An error occurred while submitting the form.");

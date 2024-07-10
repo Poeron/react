@@ -1,5 +1,8 @@
+// UserList.tsx
 import React, { useState, useEffect } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { get, put, remove } from "./ApiHelper";
+import UserModal from "./UserModal";
+import ConfirmationModal from "./ConfirmationModal";
 
 interface User {
   id: number;
@@ -15,13 +18,17 @@ const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [er, setEr] = useState<string | null>(null);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<User | null>(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseConfirmation = () => setShowConfirmation(false);
+  const handleShowConfirmation = () => setShowConfirmation(true);
 
-  const update_user = () => {
+  const updateUser = () => {
     const full_name = document.getElementById("full_name") as HTMLInputElement;
     const national_id = document.getElementById(
       "national_id"
@@ -29,46 +36,59 @@ const UserList: React.FC = () => {
     const email = document.getElementById("email") as HTMLInputElement;
     const phone = document.getElementById("phone") as HTMLInputElement;
 
-    fetch("https://localhost:7082/api/Admin/UpdateUser", {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        full_name: full_name.value,
-        national_id: national_id.value,
-        email: email.value,
-        phone: phone.value,
-        id: selectedUser?.id,
-      }),
-    }).then(() => {
-      console.log("Updated");
-      handleClose();
-    });
+    put(`https://localhost:7082/api/Admin/UpdateUser`, {
+      full_name: full_name.value,
+      national_id: national_id.value,
+      email: email.value,
+      phone: phone.value,
+      id: selectedUser?.id,
+    })
+      .then(() => {
+        setUsers((prevUsers) =>
+          prevUsers.map((u) =>
+            u.id === selectedUser?.id
+              ? {
+                  ...u,
+                  full_name: full_name.value,
+                  national_id: national_id.value,
+                  email: email.value,
+                  phone: phone.value,
+                }
+              : u
+          )
+        );
+        handleClose();
+      })
+      .catch((error) => {
+        console.error("Error updating user:", error);
+      });
+  };
+
+  const deleteUser = () => {
+    if (userToDelete) {
+      remove(
+        `https://localhost:7082/api/Admin/DeleteUser/?id=${userToDelete.id}`
+      )
+        .then(() => {
+          setUsers((prev) => prev.filter((u) => u.id !== userToDelete.id));
+          handleCloseConfirmation();
+        })
+        .catch((error) => {
+          console.error("Error deleting user:", error);
+        });
+    }
   };
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          "https://localhost:7082/api/Admin/GetUsers",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data: User[] = await response.json();
-        setUsers(data);
+        const response = await get("https://localhost:7082/api/Admin/GetUsers");
+        setUsers(response);
       } catch (error: unknown) {
         if (error instanceof Error) {
-          setError(error.message);
+          setEr(error.message);
         } else {
-          setError("An unknown error occurred");
+          setEr("An unknown error occurred");
         }
       } finally {
         setLoading(false);
@@ -76,14 +96,22 @@ const UserList: React.FC = () => {
     };
 
     fetchUsers();
-  }, [update_user]);
+  }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="spinner-border" role="status"></div>
+      </div>
+    );
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (er) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {er}
+      </div>
+    );
   }
 
   return (
@@ -128,21 +156,8 @@ const UserList: React.FC = () => {
                 <button
                   className="btn btn-danger"
                   onClick={() => {
-                    fetch(
-                      `https://localhost:7082/api/Admin/DeleteUser/?id=${user.id}`,
-                      {
-                        headers: {
-                          Authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                          )}`,
-                        },
-                        method: "DELETE",
-                      }
-                    ).then(() => {
-                      setUsers((prevUsers) =>
-                        prevUsers.filter((u) => u.id !== user.id)
-                      );
-                    });
+                    setUserToDelete(user);
+                    handleShowConfirmation();
                   }}
                 >
                   Sil
@@ -152,78 +167,19 @@ const UserList: React.FC = () => {
           ))}
         </tbody>
       </table>
-      <Modal
+      <UserModal
         show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {selectedUser
-              ? "Kullanıcı ID: " + selectedUser.id
-              : "ID alınamadı."}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="bd-example">
-            <Form>
-              <Form.Floating className=" mb-3">
-                <Form.Control
-                  type="text"
-                  className=""
-                  id="full_name"
-                  autoComplete="full_name"
-                  placeholder="John Doe"
-                  defaultValue={selectedUser?.full_name}
-                />
-                <Form.Label htmlFor="full_name">Ad Soyad</Form.Label>
-              </Form.Floating>
-              <Form.Floating className=" mb-3">
-                <Form.Control
-                  type="text"
-                  className=""
-                  id="national_id"
-                  autoComplete="national_id"
-                  placeholder="TCKN"
-                  defaultValue={selectedUser?.national_id}
-                />
-                <Form.Label htmlFor="national_id">TCKN</Form.Label>
-              </Form.Floating>
-              <Form.Floating className=" mb-3">
-                <Form.Control
-                  type="email"
-                  className=""
-                  id="email"
-                  autoComplete="email"
-                  placeholder="name@example.com"
-                  defaultValue={selectedUser?.email}
-                />
-                <Form.Label htmlFor="email">E-Mail</Form.Label>
-              </Form.Floating>
-              <Form.Floating className=" mb-3">
-                <Form.Control
-                  type="tel"
-                  className=""
-                  id="phone"
-                  autoComplete="phone"
-                  placeholder="5554442211"
-                  defaultValue={selectedUser?.phone}
-                />
-                <Form.Label htmlFor="phone">Telefon Numarası</Form.Label>
-              </Form.Floating>
-            </Form>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Kapat
-          </Button>
-          <Button variant="primary" onClick={update_user}>
-            Düzenle
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        handleClose={handleClose}
+        selectedUser={selectedUser}
+        updateUser={updateUser}
+      />
+      <ConfirmationModal
+        show={showConfirmation}
+        handleClose={handleCloseConfirmation}
+        handleConfirm={deleteUser}
+        title="Emin misiniz?"
+        body="Bu işlemi geri alamazsınız. Silmek istediğinizden emin misiniz?"
+      />
     </>
   );
 };
