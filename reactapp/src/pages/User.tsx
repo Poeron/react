@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import AddUser from "../components/AddUser";
 import EmptyApartmentList from "../components/EmptyApartmentList";
 import UserList from "../components/UserList";
