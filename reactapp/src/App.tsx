@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import About from "./pages/About";
 import Login from "./pages/Login";
 import AddBill from "./pages/AddBill";
 import BillsList from "./components/BillsList";
@@ -29,7 +28,6 @@ function App() {
           <Route path="/" element={<AdminLayout />}>
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
-            <Route path="about" element={<About />} />
             <Route path="addBill" element={<AddBill />} />
             <Route
               path="paidBills"

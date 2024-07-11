@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { get, put } from "./ApiHelper";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ModalBill from "./ModalBill";

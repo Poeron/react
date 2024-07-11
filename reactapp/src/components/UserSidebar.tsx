@@ -64,8 +64,15 @@ const UserSidebar: React.FC = () => {
         </Link>
       </div>
       <div className="mt-auto p-3">
-        <button className="btn btn-danger w-100" onClick={handleLogout}>
-          Logout
+        <button
+          className={
+            localStorage.getItem("token")
+              ? "btn btn-danger w-100"
+              : "btn btn-primary w-100"
+          }
+          onClick={handleLogout}
+        >
+          {localStorage.getItem("token") ? "Çıkış Yap" : "Giriş Yap"}
         </button>
       </div>
     </div>
