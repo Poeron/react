@@ -1,20 +1,21 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/adminPages/Home";
 import Login from "./pages/Login";
-import AddBill from "./pages/AddBill";
-import BillsList from "./components/BillsList";
-import MessageList from "./components/MessageList";
-import User from "./pages/User";
-import Apartment from "./pages/Apartment";
+import AddBill from "./pages/adminPages/AddBill";
+import Users from "./pages/adminPages/Users";
+import Apartments from "./pages/adminPages/Apartments";
 import { AuthProvider } from "./AuthContext";
 import AdminLayout from "./layouts/AdminLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import UserLayout from "./layouts/UserLayout";
-import ViewBills from "./components/ViewBills";
-import SendMessage from "./components/SendMessage";
 import ViewApartment from "./components/ViewApartment";
 import ViewUser from "./components/ViewUser";
+import PaidBills from "./pages/adminPages/PaidBills";
+import UnpaidBills from "./pages/adminPages/UnpaidBills";
+import Messages from "./pages/adminPages/Messages";
+import Bills from "./pages/userPages/Bills";
+import Test from "./pages/testPages/Test";
+import Message from "./pages/userPages/Message";
 
 function App() {
   return (
@@ -26,31 +27,18 @@ function App() {
             <Route path="login" element={<Login />} />
           </Route>
           <Route path="/" element={<AdminLayout />}>
-            <Route index element={<Home />} />
+            <Route index element={<Test />} />
             <Route path="home" element={<Home />} />
             <Route path="addBill" element={<AddBill />} />
-            <Route
-              path="paidBills"
-              element={
-                <BillsList title="Ödenmiş Faturalar" endpoint="GetPaidBills" />
-              }
-            />
-            <Route path="messages" element={<MessageList />} />
-            <Route
-              path="unpaidBills"
-              element={
-                <BillsList
-                  title="Ödenmemiş Faturalar"
-                  endpoint="GetMonthlyUnpaidBills"
-                />
-              }
-            />
-            <Route path="users" element={<User />} />
-            <Route path="apartments" element={<Apartment />} />
+            <Route path="paidBills" element={<PaidBills />} />
+            <Route path="messages" element={<Messages />} />
+            <Route path="unpaidBills" element={<UnpaidBills />} />
+            <Route path="users" element={<Users />} />
+            <Route path="apartments" element={<Apartments />} />
           </Route>
           <Route path="/user" element={<UserLayout />}>
-            <Route path="view-bills" element={<ViewBills />} />
-            <Route path="send-message" element={<SendMessage />} />
+            <Route path="view-bills" element={<Bills />} />
+            <Route path="send-message" element={<Message />} />
             <Route path="view-apartment" element={<ViewApartment />} />
             <Route path="view-user-info" element={<ViewUser />} />
           </Route>
