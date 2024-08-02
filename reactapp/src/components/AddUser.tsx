@@ -89,8 +89,8 @@ const AddUser: React.FC<AddUserProps> = ({ selectedApartmentId }) => {
 
   return (
     <>
-      <h1>Kiracı Ekle</h1>
       <form className="container" onSubmit={handleSubmit}>
+        <h1>Kiracı Ekle</h1>
         <div className="input-group mb-3">
           <input
             type="text"

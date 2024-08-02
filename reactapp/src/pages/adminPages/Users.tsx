@@ -7,12 +7,12 @@ const User = () => {
   const [selectedApartmentId, setSelectedApartmentId] = useState<string>("");
   return (
     <>
-      <UserList />
+      <AddUser selectedApartmentId={selectedApartmentId} />
+      <EmptyApartmentList onSelectApartment={setSelectedApartmentId} />
       <br />
       <hr />
       <br />
-      <AddUser selectedApartmentId={selectedApartmentId} />
-      <EmptyApartmentList onSelectApartment={setSelectedApartmentId} />
+      <UserList />
     </>
   );
 };

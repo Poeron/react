@@ -5,11 +5,12 @@ import AddApartment from "../../components/AddApartment";
 const Apartment = () => {
   return (
     <>
-      <ApartmentList />
+      <br />
+      <AddApartment />
       <br />
       <hr />
       <br />
-      <AddApartment />
+      <ApartmentList />
     </>
   );
 };

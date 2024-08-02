@@ -109,8 +109,8 @@ const AddApartment: React.FC = () => {
 
   return (
     <>
-      <h1>Daire Ekle</h1>
       <form className="container" onSubmit={handleSubmit}>
+        <h1>Daire Ekle</h1>
         <div className="input-group mb-3">
           <input
             type="text"

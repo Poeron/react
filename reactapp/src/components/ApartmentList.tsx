@@ -26,6 +26,9 @@ const ApartmentList = () => {
   const [apartmentToDelete, setApartmentToDelete] = useState<Apartment | null>(
     null
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -77,13 +80,23 @@ const ApartmentList = () => {
     }
   };
 
+  const handlePageSizeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setPageSize(Number(event.target.value));
+    setCurrentPage(1);
+  };
+
   useEffect(() => {
     const fetchApartments = async () => {
       try {
         const response = await get(
-          "https://localhost:7082/api/Admin/GetApartments"
+          `https://localhost:7082/api/Admin/GetApartments?pageNumber=${currentPage}&pageSize=${pageSize}`
         );
-        setApartments(response);
+        console.log(response);
+        setApartments(response.apartments);
+        setTotalPages(response.totalPages);
+        setCurrentPage(response.currentPage);
       } catch (error: unknown) {
         if (error instanceof Error) {
           setEr(error.message);
@@ -96,7 +109,7 @@ const ApartmentList = () => {
     };
 
     fetchApartments();
-  }, []);
+  }, [currentPage, pageSize]);
 
   if (loading) {
     return (
@@ -117,8 +130,17 @@ const ApartmentList = () => {
     return <div>No apartments found</div>;
   }
   return (
-    <>
+    <div className="container">
       <h2>Daireler</h2>
+      <div>
+        <label htmlFor="pageSize">Page Size: </label>
+        <select id="pageSize" value={pageSize} onChange={handlePageSizeChange}>
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+          <option value={50}>50</option>
+        </select>
+      </div>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -169,6 +191,29 @@ const ApartmentList = () => {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+        <button
+          className="btn btn-secondary"
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+        >
+          Previous
+        </button>
+        <span
+          style={{
+            margin: "0 10px",
+          }}
+        >
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className="btn btn-secondary"
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >
+          Next
+        </button>
+      </div>
       <ApartmentModal
         show={show}
         handleClose={handleClose}
@@ -182,7 +227,7 @@ const ApartmentList = () => {
         title="Emin misiniz?"
         body="Bu işlemi geri alamazsınız. Silmek istediğinizden emin misiniz?"
       />
-    </>
+    </div>
   );
 };
 
