@@ -4,7 +4,10 @@
   height: 100vh;
   background-color: #343a40;
   color: white;
-  padding-top: 20px;
+  overflow-y: auto; /* Kaydırma çubuğunu ekler */
+  position: fixed; /* Sidebar'ı sabitler */
+  top: 0; /* Üstten hizalama */
+  left: 0; /* Soldan hizalama */
 }
 
 .sidebar a {
@@ -18,11 +21,11 @@
 .sidebar a.selected,
 .sidebar a:hover {
   background-color: #495057;
-  font-weight: bold; /* Optional: Bold font for selected and hovered items */
+  font-weight: bold; /* Opsiyonel: Seçilen ve üzerine gelinen öğeler için kalın yazı tipi */
 }
 
 .content {
-  flex: 1;
+  margin-left: 250px; /* Sidebar genişliği kadar soldan boşluk bırakır */
   padding: 20px;
 }
 
@@ -36,8 +39,8 @@
 }
 
 .submenu a.selected {
-  background-color: #6c757d; /* Background color for selected submenu */
-  color: white; /* Text color for selected submenu */
+  background-color: #6c757d; /* Seçilen alt menü için arka plan rengi */
+  color: white; /* Seçilen alt menü için metin rengi */
 }
 
 .show {

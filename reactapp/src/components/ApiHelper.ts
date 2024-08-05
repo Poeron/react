@@ -42,7 +42,7 @@ export const put = async (url: string, body?: any) => {
 };
 
 export const remove = async (url: string) => {
-  const response = await fetch(url, {
+  const response = await fetch(URL+url, {
     method: "DELETE",
     headers: getAuthHeaders(),
   });

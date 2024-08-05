@@ -66,10 +66,8 @@ const AddApartment: React.FC = () => {
     }
     try {
       const response = await post(`/api/Admin/AddApartment`, { ...formData });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
       alert("Form submitted successfully!");
+
       // Additional actions after successful submission
     } catch (error) {
       console.error("Error submitting form:", error);
