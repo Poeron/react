@@ -1,7 +1,8 @@
 import { getAuthHeaders } from "./AuthHelper";
+import { URL } from "../lib/constants";
 
 export const get = async (url: string) => {
-  const response = await fetch(url, {
+  const response = await fetch(URL+url, {
     method: "GET",
     headers: getAuthHeaders(),
   });
@@ -14,7 +15,7 @@ export const get = async (url: string) => {
 };
 
 export const post = async (url: string, body?: any) => {
-  const response = await fetch(url, {
+  const response = await fetch(URL+url, {
     method: "POST",
     headers: getAuthHeaders(),
     body: body ? JSON.stringify(body) : undefined,
@@ -27,7 +28,7 @@ export const post = async (url: string, body?: any) => {
 };
 
 export const put = async (url: string, body?: any) => {
-  const response = await fetch(url, {
+  const response = await fetch(URL+url, {
     method: "PUT",
     headers: getAuthHeaders(),
     body: body ? JSON.stringify(body) : undefined,

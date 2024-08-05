@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { post } from "../components/ApiHelper";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -8,18 +9,10 @@ const Login: React.FC = () => {
   const handleLogin = async () => {
     setErrorMessage(""); // Clear any previous error messages
     try {
-      const response = await fetch("https://localhost:7082/api/Login/Login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("token", data.token);
-        if (data.is_admin) {
+      const response = await post(`/api/Login/Login`, { email, password });
+      if (response.token) {
+        localStorage.setItem("token", response.token);
+        if (response.is_admin) {
           window.location.href = "/home";
         } else {
           window.location.href = "/user";

@@ -1,6 +1,5 @@
 // ApartmentList.tsx
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import { get, put, remove } from "./ApiHelper";
 import ApartmentModal from "./ApartmentModal";
 import ConfirmationModal from "./ConfirmationModal";
@@ -43,7 +42,7 @@ const ApartmentList = () => {
     ) as HTMLInputElement;
     const floor = document.getElementById("floor") as HTMLInputElement;
 
-    put("https://localhost:7082/api/Admin/UpdateApartment", {
+    put(`/api/Admin/UpdateApartment`, {
       type: type.value,
       block: block.value,
       apartment_number: parseInt(apartment_number.value),
@@ -69,14 +68,14 @@ const ApartmentList = () => {
 
   const deleteApartment = () => {
     if (apartmentToDelete) {
-      remove(
-        `https://localhost:7082/api/Admin/DeleteApartment/?id=${apartmentToDelete.id}`
-      ).then(() => {
-        setApartments((prevApartments) =>
-          prevApartments.filter((a) => a.id !== apartmentToDelete.id)
-        );
-        handleCloseConfirmation();
-      });
+      remove(`/api/Admin/DeleteApartment/?id=${apartmentToDelete.id}`).then(
+        () => {
+          setApartments((prevApartments) =>
+            prevApartments.filter((a) => a.id !== apartmentToDelete.id)
+          );
+          handleCloseConfirmation();
+        }
+      );
     }
   };
 
@@ -91,7 +90,7 @@ const ApartmentList = () => {
     const fetchApartments = async () => {
       try {
         const response = await get(
-          `https://localhost:7082/api/Admin/GetApartments?pageNumber=${currentPage}&pageSize=${pageSize}`
+          `/api/Admin/GetApartments?pageNumber=${currentPage}&pageSize=${pageSize}`
         );
         console.log(response);
         setApartments(response.apartments);

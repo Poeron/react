@@ -65,7 +65,7 @@ const AddUser: React.FC<AddUserProps> = ({ selectedApartmentId }) => {
       return;
     }
     try {
-      const url = `https://localhost:7082/api/Admin/AddUser?id=${selectedApartmentId}`;
+      const url = `/api/Admin/AddUser?id=${selectedApartmentId}`;
       const response = await post(url, { ...formData });
       alert(
         `Form submitted successfully!\nUser Password: ${response.password}`

@@ -21,8 +21,8 @@ const UserCheckbox: React.FC<UserListProps> = ({ onUserSelect }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await get("https://localhost:7082/api/Admin/GetUsers");
-        setUsers(response);
+        const response = await get("/api/Admin/GetUsers");
+        setUsers(response.users);
       } catch (error: unknown) {
         if (error instanceof Error) {
           setEr(error.message);

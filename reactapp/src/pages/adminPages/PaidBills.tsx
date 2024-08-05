@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { get } from "../../components/ApiHelper";
 import BillsList from "../../components/BillsList";
 
@@ -20,7 +20,7 @@ const PaidBills = () => {
         setLoading(true);
         setEr(null);
 
-        let url = `https://localhost:7082/api/Admin/GetPaidBills`;
+        const url = `/api/Admin/GetPaidBills`;
 
         const response = await get(url);
         setBills(response);

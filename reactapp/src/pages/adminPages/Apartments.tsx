@@ -1,4 +1,3 @@
-import React from "react";
 import ApartmentList from "../../components/ApartmentList";
 import AddApartment from "../../components/AddApartment";
 

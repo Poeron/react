@@ -36,7 +36,7 @@ const UnpaidBills = () => {
         setLoading(true);
         setEr(null);
 
-        let url = `https://localhost:7082/api/Admin/GetMonthlyUnpaidBills?period=${period}`;
+        const url = `/api/Admin/GetMonthlyUnpaidBills?period=${period}`;
 
         const response = await get(url);
         setBills(response);

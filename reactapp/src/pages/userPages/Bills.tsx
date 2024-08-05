@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { get, put } from "../../components/ApiHelper";
 import ModalBill from "../../components/ModalBill";
 import ViewBills from "../../components/ViewBills";
@@ -29,7 +29,7 @@ const Bills = () => {
 
   const fetchBills = async () => {
     try {
-      let url = `https://localhost:7082/api/User/GetBills`;
+      const url = `/api/User/GetBills`;
       const response = await get(url);
       setBills(response);
     } catch (error: unknown) {
@@ -45,7 +45,7 @@ const Bills = () => {
 
   const payBill = async () => {
     try {
-      let url = `https://localhost:7082/api/User/PayBill/?id=${selectedBillID}`;
+      const url = `/api/User/PayBill/?id=${selectedBillID}`;
       await put(url);
       handleClose();
       await fetchBills();

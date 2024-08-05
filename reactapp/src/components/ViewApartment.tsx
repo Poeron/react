@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { get } from "./ApiHelper";
 import { Table } from "react-bootstrap";
 
@@ -19,7 +19,7 @@ const ViewApartment = () => {
 
   const fetchApartment = async () => {
     try {
-      let url = `https://localhost:7082/api/User/GetApartmentInfo`;
+      const url = `/api/User/GetApartmentInfo`;
       const response = await get(url);
       setApartment(response);
       setLoading(false);

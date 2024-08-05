@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { get } from "./ApiHelper";
 import { Table } from "react-bootstrap";
 
@@ -19,7 +19,7 @@ const ViewUser = () => {
 
   const fetchUser = async () => {
     try {
-      let url = `https://localhost:7082/api/User/GetUserInfo`;
+      const url = `/api/User/GetUserInfo`;
       const response = await get(url);
       setUser(response);
       setLoading(false);

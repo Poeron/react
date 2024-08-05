@@ -24,9 +24,7 @@ const EmptyApartmentList: React.FC<ApartmentListProps> = ({
   useEffect(() => {
     const fetchApartments = async () => {
       try {
-        const response = await get(
-          "https://localhost:7082/api/Admin/GetEmptyApartments"
-        );
+        const response = await get("/api/Admin/GetEmptyApartments");
         setApartments(response);
       } catch (error: unknown) {
         if (error instanceof Error) {

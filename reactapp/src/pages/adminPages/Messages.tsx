@@ -16,9 +16,7 @@ const Messages = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await get(
-          "https://localhost:7082/api/Admin/GetMessages"
-        );
+        const response = await get(`/api/Admin/GetMessages`);
         setMessages(response);
       } catch (error: unknown) {
         if (error instanceof Error) {

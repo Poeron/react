@@ -12,20 +12,9 @@ import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 
 const Test = () => {
-  const {
-    allowedMaxDays,
-    allowedDays,
-    allowedRange,
-    beforeToday,
-    afterToday,
-    combine,
-  } = DateRangePicker;
+  const { afterToday } = DateRangePicker;
 
-  const [reporters, setReporters] = useState([
-    "John Doe",
-    "Jane Doe",
-    "Foo Bar",
-  ]);
+  const reporters = ["John Doe", "Jane Doe", "Foo Bar"];
 
   const [selectedReporter, setSelectedReporter] = useState("");
   const [richText, setRichText] = useState("");

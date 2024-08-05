@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { post } from "./ApiHelper";
 
 interface FormData {
   block: string;
@@ -64,17 +65,7 @@ const AddApartment: React.FC = () => {
       return;
     }
     try {
-      const response = await fetch(
-        "https://localhost:7082/api/Admin/AddApartment",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await post(`/api/Admin/AddApartment`, { ...formData });
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

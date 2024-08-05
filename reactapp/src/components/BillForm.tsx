@@ -1,4 +1,5 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
+import { post } from "./ApiHelper";
 
 interface BillData {
   bill_type: string;
@@ -32,21 +33,9 @@ const BillForm = ({ selectedUserIds }: Props) => {
         throw new Error("Invalid value for 'Amount'");
       }
 
-      const response = await fetch("https://localhost:7082/api/Admin/AddBill", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      const response = await post("/api/Admin/AddBill", { ...payload });
 
       alert("Form submitted successfully!");
-      // Additional actions after successful submission
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("An error occurred while submitting the form.");

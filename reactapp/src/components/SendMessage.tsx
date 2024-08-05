@@ -6,7 +6,7 @@ const SendMessage = () => {
   const [message, setMessage] = useState<string>("");
   const postMessage = async () => {
     try {
-      let url = `https://localhost:7082/api/User/SendMessage`;
+      const url = `/api/User/SendMessage`;
       await post(url, {
         content: message,
         date_and_time: new Date().toISOString(),

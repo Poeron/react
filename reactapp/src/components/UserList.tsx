@@ -39,7 +39,7 @@ const UserList: React.FC = () => {
     const email = document.getElementById("email") as HTMLInputElement;
     const phone = document.getElementById("phone") as HTMLInputElement;
 
-    put(`https://localhost:7082/api/Admin/UpdateUser`, {
+    put(`/api/Admin/UpdateUser`, {
       full_name: full_name.value,
       national_id: national_id.value,
       email: email.value,
@@ -69,9 +69,7 @@ const UserList: React.FC = () => {
 
   const deleteUser = () => {
     if (userToDelete) {
-      remove(
-        `https://localhost:7082/api/Admin/DeleteUser/?id=${userToDelete.id}`
-      )
+      remove(`/api/Admin/DeleteUser/?id=${userToDelete.id}`)
         .then(() => {
           setUsers((prev) => prev.filter((u) => u.id !== userToDelete.id));
           handleCloseConfirmation();
@@ -93,7 +91,7 @@ const UserList: React.FC = () => {
     const fetchUsers = async () => {
       try {
         const response = await get(
-          `https://localhost:7082/api/Admin/GetUsers?pageNumber=${currentPage}&pageSize=${pageSize}`
+          `/api/Admin/GetUsers?pageNumber=${currentPage}&pageSize=${pageSize}`
         );
         console.log(response);
         setUsers(response.users);
