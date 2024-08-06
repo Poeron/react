@@ -11,7 +11,7 @@ const Login: React.FC = () => {
     try {
       const response = await post(`/api/Login/Login`, { email, password });
       if (response.token) {
-        localStorage.setItem("token", response.token);
+        sessionStorage.setItem("token", response.token);
         if (response.is_admin) {
           window.location.href = "/home";
         } else {

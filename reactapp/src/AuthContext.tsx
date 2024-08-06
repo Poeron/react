@@ -10,20 +10,20 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(
-    localStorage.getItem("token")
+    sessionStorage.getItem("token")
   );
 
   const handleSetToken = (newToken: string | null) => {
     if (newToken) {
-      localStorage.setItem("token", newToken);
+      sessionStorage.setItem("token", newToken);
     } else {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
     }
     setToken(newToken);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setToken(null);
   };
 
